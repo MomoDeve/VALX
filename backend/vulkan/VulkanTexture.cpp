@@ -2,6 +2,7 @@
 #include "Utilities.h"
 #include "VulkanFormat.h"
 #include "VulkanContext.h"
+#include "ExternalFunctions.h"
 #include "api/Logger.h"
 
 #include <algorithm>
@@ -52,6 +53,13 @@ namespace VALX
         VALX_VK_SUCCESS(vmaCreateImage(GetVulkanContext()->GetAllocator(), &imageCreateInfo, &allocationCreateInfo, &this->image, &this->allocation, &this->allocationInfo));
         this->info = info;
 
+        VkDebugUtilsObjectNameInfoEXT debugName = {};
+        debugName.sType = VK_STRUCTURE_TYPE_DEBUG_UTILS_OBJECT_NAME_INFO_EXT;
+        debugName.objectType = VK_OBJECT_TYPE_IMAGE;
+        debugName.objectHandle = reinterpret_cast<uint64_t>(this->image);
+        debugName.pObjectName = info.Name.c_str();
+        funcs.vkSetDebugUtilsObjectNameEXT(GetVulkanContext()->GetDevice(), &debugName);
+
         GetCurrentLogger()->LogInfo("VulkanTexture", fmt::format("texture `{}` created", info.Name));
     }
 
@@ -62,7 +70,7 @@ namespace VALX
 
     VulkanTexture::Handle VulkanTexture::GetHandle() const
     {
-        return static_cast<void*>(this->image);
+        return static_cast<Handle>(this->image);
     }
 
     VulkanTexture::~VulkanTexture()
@@ -114,6 +122,10 @@ namespace VALX
     VkImageUsageFlags ConvertTextureFlags(TextureFlags flags)
     {
         VkImageUsageFlags result = {};
+        if (static_cast<bool>(flags & TextureFlags::COPY_SRC))
+            result |= VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
+        if (static_cast<bool>(flags & TextureFlags::COPY_DST))
+            result |= VK_IMAGE_USAGE_TRANSFER_DST_BIT;
         if (static_cast<bool>(flags & TextureFlags::SAMPLED))
             result |= VK_IMAGE_USAGE_SAMPLED_BIT;
         if (static_cast<bool>(flags & TextureFlags::STORAGE))

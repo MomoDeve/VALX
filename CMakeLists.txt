@@ -10,7 +10,7 @@ option(VALX_BUILD_EXAMPLES "build examples" ON)
 set(SOURCES
 "backend/vulkan/VulkanContext.cpp"
 "backend/vulkan/ExternalFunctions.cpp"
-"api/Context.cpp" "api/Logger.cpp"  "window/Window.cpp" "window/vulkan/VulkanSurface.cpp" "backend/vulkan/VulkanSwapChain.cpp" "backend/vulkan/VulkanCommandBuffer.cpp"  "backend/vulkan/VulkanTexture.cpp" "backend/vulkan/VulkanFormat.cpp" "api/Utilities.h")
+"api/Context.cpp" "api/Logger.cpp"  "window/Window.cpp" "window/vulkan/VulkanSurface.cpp" "backend/vulkan/VulkanSwapChain.cpp" "backend/vulkan/VulkanCommandBuffer.cpp"  "backend/vulkan/VulkanTexture.cpp" "backend/vulkan/VulkanFormat.cpp" "api/Utilities.h" "backend/vulkan/VulkanBuffer.cpp")
 
 find_package(Vulkan REQUIRED FATAL_ERROR)
 

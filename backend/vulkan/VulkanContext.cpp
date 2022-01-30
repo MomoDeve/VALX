@@ -15,6 +15,7 @@
 #include "VulkanSwapChain.h"
 #include "VulkanCommandBuffer.h"
 #include "VulkanTexture.h"
+#include "VulkanBuffer.h"
 #include "window/Window.h"
 #include "window/vulkan/VulkanSurface.h"
 #include "api/Logger.h"
@@ -222,9 +223,10 @@ namespace VALX
         VALX_VK_SUCCESS(vkCreateDevice(this->physicalDevice, &deviceCreateInfo, nullptr, &this->device));
         GetCurrentLogger()->LogInfo("VulkanContext", "device created");
 
-        // device external functions
+        // external functions
         funcs.vkCreateDebugUtilsMessengerEXT = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(this->instance, "vkCreateDebugUtilsMessengerEXT");
         funcs.vkDestroyDebugUtilsMessengerEXT = (PFN_vkDestroyDebugUtilsMessengerEXT)vkGetInstanceProcAddr(this->instance, "vkDestroyDebugUtilsMessengerEXT");
+        funcs.vkSetDebugUtilsObjectNameEXT = (PFN_vkSetDebugUtilsObjectNameEXT)vkGetDeviceProcAddr(this->device, "vkSetDebugUtilsObjectNameEXT");
 
         // VkQueue selection
         if (deviceQueues.MainQueueFamily.queueCount > 0)
@@ -327,6 +329,11 @@ namespace VALX
     std::unique_ptr<Texture> VulkanContext::CreateTexture(const TextureInfo& info)
     {
         return std::unique_ptr<Texture>(new VulkanTexture(info));
+    }
+
+    std::unique_ptr<Buffer> VulkanContext::CreateBuffer(const BufferInfo& info)
+    {
+        return std::unique_ptr<Buffer>(new VulkanBuffer(info));
     }
 
     VkInstance VulkanContext::GetInstance() const

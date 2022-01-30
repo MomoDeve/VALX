@@ -34,14 +34,21 @@ int main()
         swapchain.Recreate(static_cast<uint32_t>(width), static_cast<uint32_t>(height));
     });
 
-    VALX::TextureInfo texInfo;
-    texInfo.Name = "Simple Texture";
-    texInfo.Width = 1024;
-    texInfo.Height = 1024;
-    texInfo.Flags = VALX::TextureFlags::SAMPLED;
-    texInfo.Type = VALX::TextureType::TEXTURE_2D;
-    texInfo.TextureFormat = VALX::Format::R8G8B8A8_UNORM;
-    auto texture = context->CreateTexture(texInfo);
+    VALX::TextureInfo textureInfo;
+    textureInfo.Name = "Simple Texture";
+    textureInfo.Width = 1024;
+    textureInfo.Height = 1024;
+    textureInfo.Flags = VALX::TextureFlags::SAMPLED | VALX::TextureFlags::COPY_DST;
+    textureInfo.Type = VALX::TextureType::TEXTURE_2D;
+    textureInfo.TextureFormat = VALX::Format::R8G8B8A8_UNORM;
+    auto texture = context->CreateTexture(textureInfo);
+
+    VALX::BufferInfo bufferInfo;
+    bufferInfo.Size = 64;
+    bufferInfo.Flags = VALX::BufferFlags::UNIFORM_BUFFER;
+    bufferInfo.MemoryType = VALX::BufferMemory::FROM_CPU_TO_GPU;
+    bufferInfo.Name = "Uniform Buffer";
+    auto buffer = context->CreateBuffer(bufferInfo);
 
     while (!window.ShouldClose())
     {

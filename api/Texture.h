@@ -28,10 +28,12 @@ namespace VALX
     enum class TextureFlags
     {
         NONE = 0,
-        SAMPLED = 1 << 0,
-        STORAGE = 1 << 1,
-        COLOR_ATTACHMENT = 1 << 2,
-        DEPTH_STENCIL_ATTACHMENT = 1 << 3,
+        COPY_SRC = 1 << 0,
+        COPY_DST = 1 << 1,
+        SAMPLED = 1 << 2,
+        STORAGE = 1 << 3,
+        COLOR_ATTACHMENT = 1 << 4,
+        DEPTH_STENCIL_ATTACHMENT = 1 << 5,
     };
     VALX_GENERATE_ENUM_OPS(TextureFlags)
 
