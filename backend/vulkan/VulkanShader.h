@@ -14,6 +14,7 @@ namespace VALX
         };
         std::string name;
         std::vector<ShaderStage> stages;
+        std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
         VkPipelineLayout pipelineLayout = VK_NULL_HANDLE;
 
     public:

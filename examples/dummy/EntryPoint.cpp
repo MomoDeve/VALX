@@ -5,8 +5,14 @@
 #include <backend/vulkan/VulkanContext.h>
 #include <backend/vulkan/VulkanSwapChain.h>
 
+#include <fstream>
+#include <filesystem>
+
 int main()
 {
+    if (std::filesystem::exists(APPLICATION_WORKING_DIRECTORY))
+        std::filesystem::current_path(APPLICATION_WORKING_DIRECTORY);
+
     VALX::WindowCreateInfo windowInfo;
     windowInfo.GraphicAPI = VALX::API::VULKAN;
     windowInfo.Width = 1280;
@@ -50,10 +56,15 @@ int main()
     bufferInfo.Name = "Uniform Buffer";
     auto buffer = context->CreateBuffer(bufferInfo);
 
+    std::ifstream vs("main_vertex.spv", std::ios::binary);
+    std::ifstream fs("main_fragment.spv", std::ios::binary);
+    auto bytecodeVS = std::vector<char>(std::istreambuf_iterator<char>(vs), std::istreambuf_iterator<char>());
+    auto bytecodeFS = std::vector<char>(std::istreambuf_iterator<char>(fs), std::istreambuf_iterator<char>());
+
     VALX::ShaderInfo shaderInfo;
-    shaderInfo.Stages.push_back({ VALX::ShaderStage::VERTEX, { 0, 0, 0, 0 } });
-    shaderInfo.Stages.push_back({ VALX::ShaderStage::FRAGMENT, { 0, 0, 0, 0 } });
-    shaderInfo.Name = "Simple Shader";
+    shaderInfo.Stages.push_back({ VALX::ShaderStage::VERTEX, bytecodeVS });
+    shaderInfo.Stages.push_back({ VALX::ShaderStage::FRAGMENT, bytecodeFS });
+    shaderInfo.Name = "Main Shader";
     auto shader = context->CreateShader(shaderInfo);
 
     while (!window.ShouldClose())

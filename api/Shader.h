@@ -19,7 +19,7 @@ namespace VALX
     struct ShaderStageInfo
     {
         ShaderStage Stage = ShaderStage::VERTEX;
-        std::vector<uint8_t> Bytecode;
+        std::vector<char> Bytecode;
     };
 
     struct ShaderInfo
