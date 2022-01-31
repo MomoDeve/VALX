@@ -8,6 +8,7 @@
 #include "SwapChain.h"
 #include "Texture.h"
 #include "Buffer.h"
+#include "Shader.h"
 
 namespace VALX
 {
@@ -43,6 +44,7 @@ namespace VALX
         virtual std::unique_ptr<SwapChain> CreateSwapChain(const Surface& surface) = 0;
         virtual std::unique_ptr<Texture> CreateTexture(const TextureInfo& info) = 0;
         virtual std::unique_ptr<Buffer> CreateBuffer(const BufferInfo& info) = 0;
+        virtual std::unique_ptr<Shader> CreateShader(const ShaderInfo& info) = 0;
 
         virtual ~Context() = default;
     };

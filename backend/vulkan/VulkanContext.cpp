@@ -16,6 +16,7 @@
 #include "VulkanCommandBuffer.h"
 #include "VulkanTexture.h"
 #include "VulkanBuffer.h"
+#include "VulkanShader.h"
 #include "window/Window.h"
 #include "window/vulkan/VulkanSurface.h"
 #include "api/Logger.h"
@@ -334,6 +335,11 @@ namespace VALX
     std::unique_ptr<Buffer> VulkanContext::CreateBuffer(const BufferInfo& info)
     {
         return std::unique_ptr<Buffer>(new VulkanBuffer(info));
+    }
+
+    std::unique_ptr<Shader> VulkanContext::CreateShader(const ShaderInfo& info)
+    {
+        return std::unique_ptr<Shader>(new VulkanShader(info));
     }
 
     VkInstance VulkanContext::GetInstance() const

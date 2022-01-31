@@ -36,6 +36,7 @@ namespace VALX
         virtual std::unique_ptr<SwapChain> CreateSwapChain(const Surface& surface) override;
         virtual std::unique_ptr<Texture> CreateTexture(const TextureInfo& info) override;
         virtual std::unique_ptr<Buffer> CreateBuffer(const BufferInfo& info) override;
+        virtual std::unique_ptr<Shader> CreateShader(const ShaderInfo& info) override;
         
         VALX_NO_COPY_NO_MOVE(VulkanContext);
 

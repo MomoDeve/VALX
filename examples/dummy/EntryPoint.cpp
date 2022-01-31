@@ -50,6 +50,12 @@ int main()
     bufferInfo.Name = "Uniform Buffer";
     auto buffer = context->CreateBuffer(bufferInfo);
 
+    VALX::ShaderInfo shaderInfo;
+    shaderInfo.Stages.push_back({ VALX::ShaderStage::VERTEX, { 0, 0, 0, 0 } });
+    shaderInfo.Stages.push_back({ VALX::ShaderStage::FRAGMENT, { 0, 0, 0, 0 } });
+    shaderInfo.Name = "Simple Shader";
+    auto shader = context->CreateShader(shaderInfo);
+
     while (!window.ShouldClose())
     {
         window.PollEvents();
