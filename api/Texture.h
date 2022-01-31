@@ -59,7 +59,7 @@ namespace VALX
         using Handle = void*;
 
         virtual const TextureInfo& GetInfo() const = 0;
-        virtual Handle GetHandle() const = 0;
+        virtual Texture::Handle GetHandle() const = 0;
         virtual ~Texture() = default;
     };
 }

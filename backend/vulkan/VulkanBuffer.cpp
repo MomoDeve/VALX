@@ -35,9 +35,9 @@ namespace VALX
         return this->info;
     }
 
-    VulkanBuffer::Handle VulkanBuffer::GetHandle() const
+    Buffer::Handle VulkanBuffer::GetHandle() const
     {
-        return static_cast<Handle>(this->buffer);
+        return static_cast<Buffer::Handle>(this->buffer);
     }
 
     VulkanBuffer::~VulkanBuffer()

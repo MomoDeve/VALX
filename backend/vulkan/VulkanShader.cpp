@@ -42,9 +42,9 @@ namespace VALX
         return this->name;
     }
 
-    VulkanShader::Handle VulkanShader::GetHandle() const
+    Shader::Handle VulkanShader::GetHandle() const
     {
-        return static_cast<Handle>(this->pipelineLayout);
+        return static_cast<Shader::Handle>(this->pipelineLayout);
     }
 
     VulkanShader::~VulkanShader()

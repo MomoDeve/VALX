@@ -68,9 +68,9 @@ namespace VALX
         return this->info;
     }
 
-    VulkanTexture::Handle VulkanTexture::GetHandle() const
+    Texture::Handle VulkanTexture::GetHandle() const
     {
-        return static_cast<Handle>(this->image);
+        return static_cast<Texture::Handle>(this->image);
     }
 
     VulkanTexture::~VulkanTexture()

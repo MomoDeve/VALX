@@ -43,7 +43,7 @@ namespace VALX
         using Handle = void*;
 
         virtual const BufferInfo& GetInfo() const = 0;
-        virtual Handle GetHandle() const = 0;
+        virtual Buffer::Handle GetHandle() const = 0;
         virtual ~Buffer() = default;
     };
 }
