@@ -301,6 +301,7 @@ namespace VALX
         glslang::InitializeProcess();
         GetCurrentLogger()->LogInfo("VulkanContext", "online compiler initialized");
 
+        this->textureLoader = std::unique_ptr<TextureLoader>(new TextureLoader());
         this->shaderLoader = std::unique_ptr<ShaderLoader>(new VulkanShaderLoader());
     }
 
@@ -318,6 +319,11 @@ namespace VALX
         vkDestroyInstance(this->instance, nullptr);
 
         GetCurrentLogger()->LogInfo("VulkanContext", "vulkan context destroyed");
+    }
+
+    TextureLoader* VulkanContext::GetTextureLoader()
+    {
+        return this->textureLoader.get();
     }
 
     ShaderLoader* VulkanContext::GetShaderLoader()

@@ -10,6 +10,7 @@
 #include "Buffer.h"
 #include "Shader.h"
 #include "ShaderLoader.h"
+#include "TextureLoader.h"
 
 namespace VALX
 {
@@ -41,6 +42,7 @@ namespace VALX
     class Context
     {
     public:
+        virtual TextureLoader* GetTextureLoader() = 0;
         virtual ShaderLoader* GetShaderLoader() = 0;
 
         virtual std::unique_ptr<Surface> CreateSurface(const class Window& window) = 0;

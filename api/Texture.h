@@ -2,18 +2,12 @@
 
 #include "Utilities.h"
 #include "Format.h"
+#include "TextureType.h"
 
 #include <string>
 
 namespace VALX
 {
-    enum class TextureType
-    {
-        TEXTURE_2D,
-        TEXTURE_3D,
-        TEXTURE_CUBE,
-    };
-
     enum class SampleCount
     {
         SAMPLES_1,

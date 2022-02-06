@@ -3,7 +3,6 @@
 
 // TODO: move to dll
 #include <backend/vulkan/VulkanContext.h>
-#include <backend/vulkan/VulkanSwapChain.h>
 
 #include <fstream>
 #include <filesystem>
@@ -31,6 +30,7 @@ int main()
     VALX::VulkanContext vulkanContext(contextInfo);
     VALX::SetCurrentContext(&vulkanContext);
     VALX::Context* context = VALX::GetCurrentContext();
+    auto textureLoader = context->GetTextureLoader();
     auto shaderLoader = context->GetShaderLoader();
 
     auto surface = context->CreateSurface(window);
@@ -41,13 +41,19 @@ int main()
         swapchain.Recreate(static_cast<uint32_t>(width), static_cast<uint32_t>(height));
     });
 
+    auto sandAlbedo = textureLoader->LoadTextureFromFile("../textures/sand_albedo.jpg");
+
     VALX::TextureInfo textureInfo;
-    textureInfo.Name = "Simple Texture";
-    textureInfo.Width = 1024;
-    textureInfo.Height = 1024;
+    textureInfo.Name = sandAlbedo.FilePath;
+    textureInfo.Width = sandAlbedo.Width;
+    textureInfo.Height = sandAlbedo.Height;
+    textureInfo.Depth = sandAlbedo.Depth;
+    textureInfo.Layers = sandAlbedo.Layers;
+    textureInfo.Mips = sandAlbedo.MipCount;
+    textureInfo.TextureFormat = sandAlbedo.TextureFormat;
+    textureInfo.Samples = VALX::SampleCount::SAMPLES_1;
+    textureInfo.Type = sandAlbedo.Type;
     textureInfo.Flags = VALX::TextureFlags::SAMPLED | VALX::TextureFlags::COPY_DST;
-    textureInfo.Type = VALX::TextureType::TEXTURE_2D;
-    textureInfo.TextureFormat = VALX::Format::R8G8B8A8_UNORM;
     auto texture = context->CreateTexture(textureInfo);
 
     VALX::BufferInfo bufferInfo;

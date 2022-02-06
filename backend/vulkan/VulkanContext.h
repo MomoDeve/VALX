@@ -30,10 +30,12 @@ namespace VALX
         VmaAllocator allocator = nullptr;
 
         std::unique_ptr<ShaderLoader> shaderLoader = nullptr;
+        std::unique_ptr<TextureLoader> textureLoader = nullptr;
     public:
         VulkanContext(const ContextCreateInfo& info);
         ~VulkanContext();
 
+        virtual TextureLoader* GetTextureLoader() override;
         virtual ShaderLoader* GetShaderLoader() override;
 
         virtual std::unique_ptr<Surface> CreateSurface(const class Window& window) override;
