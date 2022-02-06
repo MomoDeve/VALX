@@ -9,6 +9,7 @@
 #include "Texture.h"
 #include "Buffer.h"
 #include "Shader.h"
+#include "ShaderLoader.h"
 
 namespace VALX
 {
@@ -40,6 +41,8 @@ namespace VALX
     class Context
     {
     public:
+        virtual ShaderLoader* GetShaderLoader() = 0;
+
         virtual std::unique_ptr<Surface> CreateSurface(const class Window& window) = 0;
         virtual std::unique_ptr<SwapChain> CreateSwapChain(const Surface& surface) = 0;
         virtual std::unique_ptr<Texture> CreateTexture(const TextureInfo& info) = 0;

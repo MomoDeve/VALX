@@ -28,9 +28,13 @@ namespace VALX
         VkDebugUtilsMessengerEXT debugUtilsMessenger = VK_NULL_HANDLE;
 
         VmaAllocator allocator = nullptr;
+
+        std::unique_ptr<ShaderLoader> shaderLoader = nullptr;
     public:
         VulkanContext(const ContextCreateInfo& info);
         ~VulkanContext();
+
+        virtual ShaderLoader* GetShaderLoader() override;
 
         virtual std::unique_ptr<Surface> CreateSurface(const class Window& window) override;
         virtual std::unique_ptr<SwapChain> CreateSwapChain(const Surface& surface) override;

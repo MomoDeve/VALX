@@ -1,27 +1,12 @@
 #pragma once
 
-#include <vector>
 #include <cstdint>
 #include <string>
 
+#include "ShaderStage.h"
+
 namespace VALX
 {
-    enum class ShaderStage
-    {
-        VERTEX,
-        TESSELLATION_CONTROL,
-        TESSELLATION_EVALUATION,
-        GEOMETRY,
-        FRAGMENT,
-        COMPUTE,
-    };
-
-    struct ShaderStageInfo
-    {
-        ShaderStage Stage = ShaderStage::VERTEX;
-        std::vector<char> Bytecode;
-    };
-
     struct ShaderInfo
     {
         std::string Name;

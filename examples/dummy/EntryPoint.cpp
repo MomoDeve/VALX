@@ -31,6 +31,7 @@ int main()
     VALX::VulkanContext vulkanContext(contextInfo);
     VALX::SetCurrentContext(&vulkanContext);
     VALX::Context* context = VALX::GetCurrentContext();
+    auto shaderLoader = context->GetShaderLoader();
 
     auto surface = context->CreateSurface(window);
     auto swapchain = context->CreateSwapChain(*surface);
@@ -56,14 +57,13 @@ int main()
     bufferInfo.Name = "Uniform Buffer";
     auto buffer = context->CreateBuffer(bufferInfo);
 
-    std::ifstream vs("main_vertex.spv", std::ios::binary);
-    std::ifstream fs("main_fragment.spv", std::ios::binary);
-    auto bytecodeVS = std::vector<char>(std::istreambuf_iterator<char>(vs), std::istreambuf_iterator<char>());
-    auto bytecodeFS = std::vector<char>(std::istreambuf_iterator<char>(fs), std::istreambuf_iterator<char>());
-
     VALX::ShaderInfo shaderInfo;
-    shaderInfo.Stages.push_back({ VALX::ShaderStage::VERTEX, bytecodeVS });
-    shaderInfo.Stages.push_back({ VALX::ShaderStage::FRAGMENT, bytecodeFS });
+    shaderInfo.Stages.push_back(
+        shaderLoader->LoadFromSourceFile("main_vertex.glsl", VALX::ShaderStage::VERTEX, VALX::ShaderLanguage::GLSL)
+    );
+    shaderInfo.Stages.push_back(
+        shaderLoader->LoadFromSourceFile("main_fragment.glsl", VALX::ShaderStage::FRAGMENT, VALX::ShaderLanguage::GLSL)
+    );
     shaderInfo.Name = "Main Shader";
     auto shader = context->CreateShader(shaderInfo);
 

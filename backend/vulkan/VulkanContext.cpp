@@ -17,6 +17,7 @@
 #include "VulkanTexture.h"
 #include "VulkanBuffer.h"
 #include "VulkanShader.h"
+#include "VulkanShaderLoader.h"
 #include "window/Window.h"
 #include "window/vulkan/VulkanSurface.h"
 #include "api/Logger.h"
@@ -299,6 +300,8 @@ namespace VALX
         // compiler creation
         glslang::InitializeProcess();
         GetCurrentLogger()->LogInfo("VulkanContext", "online compiler initialized");
+
+        this->shaderLoader = std::unique_ptr<ShaderLoader>(new VulkanShaderLoader());
     }
 
     VulkanContext::~VulkanContext()
@@ -315,6 +318,11 @@ namespace VALX
         vkDestroyInstance(this->instance, nullptr);
 
         GetCurrentLogger()->LogInfo("VulkanContext", "vulkan context destroyed");
+    }
+
+    ShaderLoader* VulkanContext::GetShaderLoader()
+    {
+        return this->shaderLoader.get();
     }
 
     std::unique_ptr<Surface> VulkanContext::CreateSurface(const Window& window)
