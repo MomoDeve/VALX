@@ -56,6 +56,10 @@ int main()
     textureInfo.Flags = VALX::TextureFlags::SAMPLED | VALX::TextureFlags::COPY_DST;
     auto texture = context->CreateTexture(textureInfo);
 
+    VALX::SamplerInfo samplerInfo;
+    samplerInfo.Name = "Simple Sampler";
+    auto sampler = context->CreateSampler(samplerInfo);
+
     VALX::BufferInfo bufferInfo;
     bufferInfo.Size = 64;
     bufferInfo.Flags = VALX::BufferFlags::UNIFORM_BUFFER;

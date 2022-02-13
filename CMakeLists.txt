@@ -20,7 +20,7 @@ set(SOURCES
 "backend/vulkan/VulkanFormat.cpp" 
 "api/Utilities.h" 
 "backend/vulkan/VulkanBuffer.cpp" 
-"backend/vulkan/VulkanShader.cpp" "backend/vulkan/VulkanShaderLoader.cpp" "api/TextureLoader.cpp" "api/Format.cpp")
+"backend/vulkan/VulkanShader.cpp" "backend/vulkan/VulkanShaderLoader.cpp" "api/TextureLoader.cpp" "api/Format.cpp" "backend/vulkan/VulkanSampler.cpp")
 
 find_package(Vulkan REQUIRED FATAL_ERROR)
 

@@ -9,6 +9,7 @@
 #include "Texture.h"
 #include "Buffer.h"
 #include "Shader.h"
+#include "Sampler.h"
 #include "ShaderLoader.h"
 #include "TextureLoader.h"
 
@@ -50,6 +51,7 @@ namespace VALX
         virtual std::unique_ptr<Texture> CreateTexture(const TextureInfo& info) = 0;
         virtual std::unique_ptr<Buffer> CreateBuffer(const BufferInfo& info) = 0;
         virtual std::unique_ptr<Shader> CreateShader(const ShaderInfo& info) = 0;
+        virtual std::unique_ptr<Sampler> CreateSampler(const SamplerInfo& info) = 0;
 
         virtual ~Context() = default;
     };

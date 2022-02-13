@@ -17,6 +17,7 @@
 #include "VulkanTexture.h"
 #include "VulkanBuffer.h"
 #include "VulkanShader.h"
+#include "VulkanSampler.h"
 #include "VulkanShaderLoader.h"
 #include "window/Window.h"
 #include "window/vulkan/VulkanSurface.h"
@@ -214,9 +215,13 @@ namespace VALX
         multiviewFeatures.multiview = true;
         multiviewFeatures.pNext = &descriptorIndexingFeatures;
 
+        VkPhysicalDeviceFeatures enabledDeviceFeatures = {};
+        enabledDeviceFeatures.samplerAnisotropy = true;
+
         VkDeviceCreateInfo deviceCreateInfo = {};
         deviceCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
         deviceCreateInfo.pNext = &multiviewFeatures;
+        deviceCreateInfo.pEnabledFeatures = &enabledDeviceFeatures;
         deviceCreateInfo.ppEnabledExtensionNames = deviceExtensions.data();
         deviceCreateInfo.enabledExtensionCount = static_cast<uint32_t>(deviceExtensions.size());
         deviceCreateInfo.pQueueCreateInfos = queueCreateInfos.data();
@@ -354,6 +359,11 @@ namespace VALX
     std::unique_ptr<Shader> VulkanContext::CreateShader(const ShaderInfo& info)
     {
         return std::unique_ptr<Shader>(new VulkanShader(info));
+    }
+
+    std::unique_ptr<Sampler> VulkanContext::CreateSampler(const SamplerInfo& info)
+    {
+        return std::unique_ptr<Sampler>(new VulkanSampler(info));
     }
 
     VkInstance VulkanContext::GetInstance() const
